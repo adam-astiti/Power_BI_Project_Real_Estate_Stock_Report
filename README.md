@@ -86,11 +86,6 @@ RETURN
     anytimecal
 ```
 
-- Custom column dax logic: dax logic that .
-
-- Conditional Formatting: Visual cues for stock status to highlight "Obsolete" or "Critical" inventory levels.
-
-
 ## Deep Dive: Dynamic MoM Analysis Engine (ST MoM Analysis)
 One of the core technical challenges in this project was creating a highly performant, dynamic Matrix report that handles multiple metrics (Amount vs. Count), time periods, and "As-Of" snapshot logic simultaneously.
 
@@ -117,13 +112,129 @@ If no date is selected, it defaults to a Real-Time View based on TODAY().
 
 Context-Aware Formatting (ISINSCOPE): To ensure a clean UI, the measure uses ISINSCOPE to only display "Launching Date" metadata at the specific Cluster level, preventing data clutter at the aggregate/total levels.
 
+```dax
+ST MoM Analysis = 
+VAR header1 =
+    SELECTEDVALUE ( 'Helper for MOM 4'[-] )
+VAR header2 =
+    SELECTEDVALUE ( 'Helper for MOM 4'[- ] )
+VAR header3 =
+    SELECTEDVALUE ( 'Helper for MOM 4'[Header 3] )
+VAR CurrentPeriod =
+    SELECTEDVALUE ( Date_table[end of month] )
+VAR PrevPeriod =
+    SELECTEDVALUE ( Date_table[end of month before] )
+VAR CurrentPeriodmin =
+    EDATE ( DATE ( YEAR ( MIN ( Date_table[Date] ) ), MONTH ( MIN ( Date_table[Date] ) ), 1 ), 1 ) - 1
+VAR PrevPeriodmin =
+    DATE ( YEAR ( MIN ( Date_table[Date] ) ), MONTH ( MIN ( Date_table[Date] ) ), 1 ) - 1
+VAR CurrentPeriodmax =
+    MAX ( Date_table[end of month] )
+VAR PrevPeriodmax =
+    MAX ( Date_table[end of month before] )
+VAR InMio = 1000000
+VAR RealStatus = header2
+VAR IsTotalMetrics = ( header1 = "Deviation" ) -- 3. CORE CALCULATION
+VAR Val_Current =
+    CALCULATE (
+        IF (
+            header3 = "Amount",
+            SUM ( Stock_History_Daily[PriceApproval] ) / InMio,
+            distinctCOUNT ( Stock_History_Daily[materianno&company] )
+        ),
+        Stock_History_Daily[ValidFrom] <= CurrentPeriodmin,
+        Stock_History_Daily[ValidTo] >= CurrentPeriodmin,
+        -- LOGIC BARU:
+        -- Jika ini Deviation (IsTotalMetrics = TRUE), maka kondisi jadi TRUE (ambil semua data/Total).
+        -- Jika BUKAN Deviation, baru dia filter berdasarkan Status.
+        IsTotalMetrics
+            || Stock_History_Daily[ConstructionStatusDesc] = RealStatus
+    )
+VAR Val_Prev =
+    CALCULATE (
+        IF (
+            header3 = "Amount",
+            SUM ( Stock_History_Daily[PriceApproval] ) / InMio,
+            distinctCOUNT ( Stock_History_Daily[materianno&company] )
+        ),
+        Stock_History_Daily[ValidFrom] <= PrevPeriodmin,
+        Stock_History_Daily[ValidTo] >= PrevPeriodmin,
+        IsTotalMetrics
+            || Stock_History_Daily[ConstructionStatusDesc] = RealStatus
+    )
+VAR todaymonthperiod =
+    EDATE ( DATE ( YEAR ( TODAY () ), MONTH ( TODAY () ), 1 ), 1 ) - 1
+VAR todaypreviousmonthperiod =
+    DATE ( YEAR ( TODAY () ), MONTH ( TODAY () ), 1 ) - 1
+VAR todayVal_Current =
+    CALCULATE (
+        IF (
+            header3 = "Amount",
+            SUM ( Stock_History_Daily[PriceApproval] ) / InMio,
+            distinctCOUNT ( Stock_History_Daily[materianno&company] )
+        ),
+        Stock_History_Daily[ValidFrom] <= todaymonthperiod,
+        Stock_History_Daily[ValidTo] >= todaymonthperiod,
+        -- LOGIC BARU:
+        -- Jika ini Deviation (IsTotalMetrics = TRUE), maka kondisi jadi TRUE (ambil semua data/Total).
+        -- Jika BUKAN Deviation, baru dia filter berdasarkan Status.
+        IsTotalMetrics
+            || Stock_History_Daily[ConstructionStatusDesc] = RealStatus
+    )
+VAR today_Val_Prev =
+    CALCULATE (
+        IF (
+            header3 = "Amount",
+            SUM ( Stock_History_Daily[PriceApproval] ) / InMio,
+            distinctCOUNT ( Stock_History_Daily[materianno&company] )
+        ),
+        Stock_History_Daily[ValidFrom] <= todaypreviousmonthperiod,
+        Stock_History_Daily[ValidTo] >= todaypreviousmonthperiod,
+        IsTotalMetrics
+            || Stock_History_Daily[ConstructionStatusDesc] = RealStatus
+    )
+VAR selecteddatecal =
+    SWITCH (
+        header1,
+        "As Of Month", Val_Current,
+        "As Of Month Before", Val_Prev,
+        "Deviation", Val_Current - Val_Prev,
+        -- Sekarang Val_Current isinya sudah Total, jadi aman.
+        "Launching Date",
+            IF (
+                ISINSCOPE ( Stock_History_Daily[ClusterDesc] ),
+                FORMAT ( MAX ( Stock_History_Daily[LaunchingDate] ), "dd mmm yyyy" ),
+                BLANK ()
+            )
+    )
+VAR todaydatecal =
+    SWITCH (
+        header1,
+        "As Of Month", todayVal_Current,
+        "As Of Month Before", today_Val_Prev,
+        "Deviation", todayVal_Current - today_Val_Prev,
+        -- Sekarang Val_Current isinya sudah Total, jadi aman.
+        "Launching Date",
+            IF (
+                ISINSCOPE ( Stock_History_Daily[ClusterDesc] ),
+                FORMAT ( MAX ( Stock_History_Daily[LaunchingDate] ), "dd mmm yyyy" ),
+                BLANK ()
+            )
+    )
+VAR anytimecal =
+    IF ( ISFILTERED ( Date_table[Date] ), selecteddatecal, todaydatecal )
+RETURN
+    anytimecal
+```
+
 DAX Logic Breakdown:
 Variables: Capture user selection from the Helper Table and Date Slicers.
 
 Core Calculation (Val_Current / Val_Prev): Executes the filtered aggregation based on the validity period of the stock.
 
 The Switchboard: A final SWITCH statement determines the final output (As of Month, Month Before, or the Variance/Deviation).
-## UI/UX Design
-- Navigation: Built-in buttons for "Overview," "Summary," and "Detail" views.
 
-- Scalability: The dashboard is designed to handle thousands of unit records while maintaining fast load times through Dremio/Data Virtualization optimization.
+## UI/UX Design
+- Navigation: Built-in buttons for "Cover", "Overview," "Summary," and "Detail" views.
+
+- Scalability: The dashboard is designed to handle thousands of unit records while maintaining fast load times.
