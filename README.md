@@ -233,4 +233,4 @@ The Switchboard: A final SWITCH statement determines the final output (As of Mon
 ## UI/UX Design
 - Navigation: Built-in buttons for "Cover", "Overview," "Summary," and "Detail" views.
 
-- Scalability: The dashboard is designed to handle thousands of unit records while maintaining fast load times.
+- Scalability: The dashboard is designed to handle millions of unit historical data records while maintaining fast load times.
