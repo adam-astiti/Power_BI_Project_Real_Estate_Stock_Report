@@ -144,9 +144,7 @@ VAR Val_Current =
         ),
         Stock_History_Daily[ValidFrom] <= CurrentPeriodmin,
         Stock_History_Daily[ValidTo] >= CurrentPeriodmin,
-        -- LOGIC BARU:
-        -- Jika ini Deviation (IsTotalMetrics = TRUE), maka kondisi jadi TRUE (ambil semua data/Total).
-        -- Jika BUKAN Deviation, baru dia filter berdasarkan Status.
+        
         IsTotalMetrics
             || Stock_History_Daily[ConstructionStatusDesc] = RealStatus
     )
@@ -175,9 +173,7 @@ VAR todayVal_Current =
         ),
         Stock_History_Daily[ValidFrom] <= todaymonthperiod,
         Stock_History_Daily[ValidTo] >= todaymonthperiod,
-        -- LOGIC BARU:
-        -- Jika ini Deviation (IsTotalMetrics = TRUE), maka kondisi jadi TRUE (ambil semua data/Total).
-        -- Jika BUKAN Deviation, baru dia filter berdasarkan Status.
+        
         IsTotalMetrics
             || Stock_History_Daily[ConstructionStatusDesc] = RealStatus
     )
@@ -199,7 +195,7 @@ VAR selecteddatecal =
         "As Of Month", Val_Current,
         "As Of Month Before", Val_Prev,
         "Deviation", Val_Current - Val_Prev,
-        -- Sekarang Val_Current isinya sudah Total, jadi aman.
+        
         "Launching Date",
             IF (
                 ISINSCOPE ( Stock_History_Daily[ClusterDesc] ),
@@ -213,7 +209,7 @@ VAR todaydatecal =
         "As Of Month", todayVal_Current,
         "As Of Month Before", today_Val_Prev,
         "Deviation", todayVal_Current - today_Val_Prev,
-        -- Sekarang Val_Current isinya sudah Total, jadi aman.
+        
         "Launching Date",
             IF (
                 ISINSCOPE ( Stock_History_Daily[ClusterDesc] ),
