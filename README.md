@@ -3,7 +3,7 @@
 ## Project Overview
 This project is a comprehensive Real Estate Inventory Management Dashboard designed to provide stakeholders with end-to-end visibility into stock health, sales performance, and construction progress. It transforms complex raw data into actionable insights for high-level decision-making.
 
-Note: This dashboard utilizes a creative dummy dataset with location names inspired by One Piece (e.g., Alabasta, Dressrosa, Marineford) to demonstrate professional BI capabilities within a unique, portfolio-friendly context.
+Note: The logic and architecture of this dashboard are based on a real-world complex inventory system I built at my previous firm. To comply with data privacy and security, I have fully anonymized and obfuscated the dataset using fictional placeholders while maintaining the original data's integrity and structural complexity.
 
 [![Download Power BI Files here](https://img.shields.io/badge/Download-PowerBI_File_Here-blue?style=flat&logo=powerbi)](https://drive.google.com/drive/folders/1ymg00PbdNrHIeMz_mD2-wBl_VOIacpuG?usp=sharing)
 
