@@ -11,19 +11,19 @@ Note: This dashboard utilizes a creative dummy dataset with location names inspi
 ### 1. Interactive Landing Page
 A clean entry point featuring a modular navigation system for seamless access to different report levels.
 
-<img width="1159" height="647" alt="image" src="https://github.com/user-attachments/assets/3be3a353-d4cc-49e1-b9af-4521535db64e" />
+<img width="659" height="377" alt="image" src="https://github.com/user-attachments/assets/3be3a353-d4cc-49e1-b9af-4521535db64e" />
 
 
 ### 2. Executive Overview
 Focuses on high-level KPIs: Stock Total Price (Mio IDR), Available vs. Hold units, and Price Point distribution.
 
-<img width="1169" height="646" alt="image" src="https://github.com/user-attachments/assets/09e4813a-3988-4c3e-b0d4-ce76040fa3c0" />
+<img width="659" height="377" alt="image" src="https://github.com/user-attachments/assets/09e4813a-3988-4c3e-b0d4-ce76040fa3c0" />
 
 
 ### 3. Inventory Summary & MoM Analysis
 A detailed hierarchical view comparing Month-over-Month (MoM) stock status (Under Construction, Ready Stock, Not Assigned) with automated deviation tracking.
 
-<img width="1165" height="655" alt="image" src="https://github.com/user-attachments/assets/0e442872-7198-4c78-b5b0-7d191a5a07f8" />
+<img width="659" height="377" alt="image" src="https://github.com/user-attachments/assets/0e442872-7198-4c78-b5b0-7d191a5a07f8" />
 
 
 ### 4. Advanced Filtering System
@@ -33,14 +33,15 @@ A dedicated, pop-out filter panel designed using bookmarks and selection panes t
 ## Technical Highlights
 ### Data Modeling
 - **Architecture**: Implemented a Star Schema to optimize query performance and ensure data integrity.
+<img width="791" height="358" alt="image" src="https://github.com/user-attachments/assets/a3d8c8c3-da83-49fe-9caf-e56cd7efccc3" />
 
 - **Granularity**: Data flows from Group Pillar and SBU levels down to specific Unit IDs.
 
-- **Dataset Design**: Historical dataset with **SCD Type 2** for:
+- **Dataset Design**: Historical dataset with **SCD Type 2** using **validfrom** and **validto** column for:
   - Accurate historical tracking
   - Fast incremental processing
   - Point-in-time analysis
-
+  
 ### DAX Engineering
 - **Time Intelligence**:
   1. Custom DAX measures to make sure that when usser open the report then they will directly see today data.
@@ -232,5 +233,6 @@ The Switchboard: A final SWITCH statement determines the final output (As of Mon
 
 ## UI/UX Design
 - Navigation: Built-in buttons for "Cover", "Overview," "Summary," and "Detail" views.
+<img width="371" height="73" alt="image" src="https://github.com/user-attachments/assets/abf484a7-317d-45d0-9dec-f3f42c0b82c1" />
 
 - Scalability: The dashboard is designed to handle millions of unit historical data records while maintaining fast load times.
