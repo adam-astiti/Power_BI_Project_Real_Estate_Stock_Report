@@ -6,22 +6,26 @@ This project is a comprehensive Real Estate Inventory Management Dashboard desig
 Note: This dashboard utilizes a creative dummy dataset with location names inspired by One Piece (e.g., Alabasta, Dressrosa, Marineford) to demonstrate professional BI capabilities within a unique, portfolio-friendly context.
 
 ## Dashboard Previews
+![Demo](new_stock_list.gif)
 
 ### 1. Interactive Landing Page
 A clean entry point featuring a modular navigation system for seamless access to different report levels.
-(Insert image_dce2a2.jpg here)
+
+
 
 ### 2. Executive Overview
 Focuses on high-level KPIs: Stock Total Price (Mio IDR), Available vs. Hold units, and Price Point distribution.
-(Insert image_dce27e.jpg here)
+
+
 
 ### 3. Inventory Summary & MoM Analysis
 A detailed hierarchical view comparing Month-over-Month (MoM) stock status (Under Construction, Ready Stock, Not Assigned) with automated deviation tracking.
-(Insert image_dcdf5a.jpg here)
+
+
 
 ### 4. Advanced Filtering System
 A dedicated, pop-out filter panel designed using bookmarks and selection panes to maintain a clutter-free user experience.
-(Insert image_dcdebe.png here)
+![Demo](filter.gif)
 
 ## Technical Highlights
 ### Data Modeling
