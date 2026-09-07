@@ -5,6 +5,21 @@ This project is a comprehensive Real Estate Inventory Management Dashboard desig
 
 Note: The logic and architecture of this dashboard are based on a real-world complex inventory system I built at my previous firm. To comply with data privacy and security, I have fully anonymized and obfuscated the dataset using fictional placeholders while maintaining the original data's integrity and structural complexity.
 
+##  Business Context & Problem Statement
+
+Real estate stakeholders often struggle to evaluate property inventory trends because conventional ERP reports only display current, static stock levels. Evaluating historic stock positions for audit, monthly reporting, or strategy planning requires dynamic time-slice analysis.
+
+### Key Business Challenges
+* **Lack of Historical Visibility:** Inability to track historical stock conditions and unit status on specific selected dates.
+* **Manual Month-over-Month (MoM) Tracking:** Time-consuming manual comparison of current month vs. previous month performance (pricing changes, reserved units, and available stock).
+* **Missing Executive-Level Abstraction:** High-level executives need an immediate overview before drilling down into granular property details.
+
+###  The Solution
+This Power BI reporting solution provides a multi-layered analytical framework:
+1. **High-Level Executive Overview:** Instant visibility into overall portfolio performance and key inventory KPIs.
+2. **Dynamic Time-Intelligence (MoM Comparison):** Automated Month-over-Month metrics to track inventory turnover and valuation movement over time.
+3. **Point-in-Time Historical Stock Analytics:** Allows stakeholders to select any specific historical date to inspect exact stock conditions, unit availability, and status at that point in time.
+
 [![Download Power BI Files here](https://img.shields.io/badge/Download-PowerBI_File_Here-blue?style=flat&logo=powerbi)](https://drive.google.com/file/d/1t58PRusFbeYTzkIlwZNaNFaDCPhlEQUM/view?usp=sharing)
 
 ## Dashboard Previews
