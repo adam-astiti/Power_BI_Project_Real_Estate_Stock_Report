@@ -5,7 +5,7 @@ This project is a comprehensive Real Estate Inventory Management Dashboard desig
 
 Note: The logic and architecture of this dashboard are based on a real-world complex inventory system I built at my previous firm. To comply with data privacy and security, I have fully anonymized and obfuscated the dataset using fictional placeholders while maintaining the original data's integrity and structural complexity.
 
-[![Download Power BI Files here](https://img.shields.io/badge/Download-PowerBI_File_Here-blue?style=flat&logo=powerbi)](https://drive.google.com/drive/folders/1ymg00PbdNrHIeMz_mD2-wBl_VOIacpuG?usp=sharing)
+[![Download Power BI Files here](https://img.shields.io/badge/Download-PowerBI_File_Here-blue?style=flat&logo=powerbi)]([https://drive.google.com/drive/folders/1ymg00PbdNrHIeMz_mD2-wBl_VOIacpuG?usp=sharing](https://drive.google.com/file/d/1t58PRusFbeYTzkIlwZNaNFaDCPhlEQUM/view?usp=sharing))
 
 ## Dashboard Previews
 ![Demo](new_stock_list.gif)
